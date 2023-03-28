@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [lean]
+        target: [lean,lienol]
     
     steps:
     - name: 检查
