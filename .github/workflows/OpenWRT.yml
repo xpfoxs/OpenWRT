@@ -1,4 +1,4 @@
-name: Openwrt-AutoBuild
+name: Openwrt
 
 on:
 #  release:
@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [lienol-x64]
+        target: [lean]
     
     steps:
     - name: 检查
