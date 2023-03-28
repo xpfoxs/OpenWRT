@@ -7,3 +7,5 @@ cp -f ../user/common/default-settings package/lean/default-settings/files/zzz-de
 cat ../user/lean/config.diff ../user/common/config.diff > .config
 
 ls -l -a
+
+cat .config
