@@ -1,17 +1,17 @@
 name: immortalwrt18.06
 
 on:
-  release:
-    types: [published]
-#  push:
-#    branches:
-#      - master
-#    paths:
-#      - 'start'
-#  schedule:
-#    - cron: 0 23 * * *
-#  watch:
-#    types: [started]
+#  release:
+#    types: [published]
+  push:
+    branches:
+      - master
+    paths:
+      - 'start'
+  schedule:
+    - cron: 0 23 * * *
+  watch:
+    types: [started]
 
 env:
   RUN_VALIDATION: true
