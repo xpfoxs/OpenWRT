@@ -9,4 +9,4 @@ git clone https://github.com/destan19/OpenAppFilter.git                         
 rm -rf feeds/packages/net/mosdns
 git clone https://github.com/KFERMercer/luci-app-tcpdump.git                    package/luci-app-tcpdump
 
-cp -f ../user/lean/default-settings package/lean/default-settings/files/zzz-default-settings
+cp -f ../user/common/default-settings package/lean/default-settings/files/zzz-default-settings
