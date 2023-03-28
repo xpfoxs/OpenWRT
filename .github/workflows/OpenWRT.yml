@@ -122,6 +122,7 @@ jobs:
     - name: 下载软件包
       id: package
       run: |
+        cd openwrt
         make defconfig
         echo '最终生成的.config文件'
         make download -j8
