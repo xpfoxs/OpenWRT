@@ -1,0 +1,268 @@
+name: Openwrt
+
+on:
+#  release:
+#    types: [published]
+  push:
+    branches:
+      - master
+    paths:
+      - 'start'
+  schedule:
+    - cron: 0 23 * * *
+  watch:
+    types: [started]
+
+env:
+  RUN_VALIDATION: true
+
+jobs:
+  build:
+    runs-on:  ubuntu-latest
+#    if: github.event.repository.owner.id == github.event.sender.id
+    if: github.repository_owner=='xpfoxs'
+
+    name: Build ${{matrix.target}}
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [immortalwrt18.06]
+    
+    steps:
+    - name: 检查
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        
+    - name: 设置日期
+      run: |
+        sudo timedatectl set-timezone 'Asia/Shanghai'
+        date=$(date +%Y-%m-%d)
+        echo "DATE=$date" >> $GITHUB_ENV
+        
+    - name: 开始安装编译所需系统
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        ( sudo -E apt-get -qq update
+        sudo -E apt-get -qq install build-essential clang flex g++ gawk gcc-multilib gettext libfuse-dev \
+        git libncurses5-dev libssl-dev python3-distutils rsync unzip zlib1g-dev swig libpython3-dev aria2 jq subversion qemu-utils ccache rename libelf-dev
+        sudo -E apt-get -qq purge azure-cli ghc* zulu* hhvm llvm* firefox powershell openjdk* dotnet* google* mysql* php* android*
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean ) & 
+        
+    - name: 加载脚本设置
+      run: |    
+        source "${GITHUB_WORKSPACE}/user/${{matrix.target}}/settings.ini"
+        echo "REPO_URL=${REPO_URL}" >> $GITHUB_ENV
+        echo "REPO_BRANCH=${REPO_BRANCH}" >> $GITHUB_ENV
+        echo "UPLOAD_PACKAGES_DIR=${UPLOAD_PACKAGES_DIR}" >> $GITHUB_ENV
+        echo "UPLOAD_TARGETS_DIR=${UPLOAD_TARGETS_DIR}" >> $GITHUB_ENV
+        echo "UPLOAD_FIRMWARE=${UPLOAD_FIRMWARE}" >> $GITHUB_ENV
+        echo "UPLOAD_TO_ARTIFACTS=${UPLOAD_TO_ARTIFACTS}" >> $GITHUB_ENV
+        echo "UPLOAD_TO_REALEASE=${UPLOAD_TO_REALEASE}" >> $GITHUB_ENV
+        echo "UPLOAD_TO_COWTRANSFER=${UPLOAD_TO_COWTRANSFER}" >> $GITHUB_ENV
+        echo "WECHAT_NOTIFICATION=${WECHAT_NOTIFICATION}" >> $GITHUB_ENV
+        echo "TELEGRAM_NOTIFICATION=${TELEGRAM_NOTIFICATION}" >> $GITHUB_ENV
+        echo "Del_WorkFlow=${Del_WorkFlow}" >> $GITHUB_ENV
+        echo "Del_Releases=${Del_Releases}" >> $GITHUB_ENV
+        df -hT
+        
+    - name: 下载源码
+      run: |
+        git clone ${{ env.REPO_URL }} -b ${{ env.REPO_BRANCH }} openwrt
+        cd openwrt
+        sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
+        sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+        
+    - name: 应用补丁
+      run: | 
+        echo "Apply patches"
+        if [ -n "$(ls -A "user/common/patches" 2>/dev/null)" ]; then
+        (
+          find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
+        )
+        fi
+        if [ -n "$(ls -A "user/${{matrix.target}}/patches" 2>/dev/null)" ]; then
+        (
+          find "user/${{matrix.target}}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
+        )
+        fi
+        
+    - name: 更新/安装源
+      run: |
+         cd openwrt
+         ./scripts/feeds update -a
+         ./scripts/feeds install -a
+      
+    - name: 加载自定义配置
+      run: |        
+         echo "Apply files..."
+         if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
+         cp -r -f user/common/files/* openwrt/package/base-files/files/
+         fi
+         if [ -n "$(ls -A "user/${{matrix.target}}/files" 2>/dev/null)" ]; then
+         cp -r -f user/${{matrix.target}}/files/* openwrt/package/base-files/files/
+         fi
+        
+         echo "Apply custom.sh"
+         if [ -f "user/common/custom.sh" ]; then
+         (
+           cd openwrt
+           /bin/bash "../user/common/custom.sh"
+         )
+         fi       
+         if [ -f "user/${{matrix.target}}/custom.sh" ]; then
+         (
+           cd openwrt
+           /bin/bash ../user/${{matrix.target}}/custom.sh ${{matrix.target}}
+         )
+         fi
+         
+    - name: 下载软件包
+      id: package
+      run: |
+        cd openwrt
+        make defconfig
+        echo '最终生成的.config文件'
+        make download -j8
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+        
+    - name: 设置缓存
+      uses: klever1988/cachewrtbuild@main
+      with:
+        ccache: 'true'
+        prefix: ${{ github.workspace }}/openwrt
+
+    - name: 开始编译固件
+      id: compile
+      run: |
+        cd openwrt
+        echo -e "$(($(nproc)+1)) thread compile"
+        make -j$(($(nproc)+1)) || make -j1 V=s
+        echo "status=success" >> $GITHUB_OUTPUT
+    
+    - name: 检查空间使用情况
+      if: (!cancelled())
+      run: df -hT
+      
+    - name:  分类打包软件、固件
+      if: steps.compile.outputs.status == 'success'
+      run: |
+        cd openwrt/bin/packages/
+        tar -cvf  ${{matrix.target}}-packages.tar ./
+        mv *.tar ..
+        
+    - name:  分类打包软件
+      if: steps.compile.outputs.status == 'success'
+      run: |
+        cd openwrt/bin/targets/
+        tar -cvf  ${{matrix.target}}-targets.tar ./
+        mv *.tar ..
+        
+    - name: 分类打包固件
+      run: |
+          rm -rf ./Firmware/
+          mkdir -p ./Firmware/
+          #find openwrt/bin/targets/ -name "*bin*" | xargs -i mv -f {} ./Firmware/
+          find openwrt/bin/targets/ -name "*img*" | xargs -i mv -f {} ./Firmware/
+      #    cp openwrt/.config  ./firmware/${{matrix.target}}.config
+      #    cp openwrt/build_dir/target-*/linux-*/linux-*/.config ./firmware/${{matrix.target}}_kernel.config
+        
+    - name: 上传软件包到Release
+      if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_REALEASE == 'true' && !cancelled() &&  steps.compile.outputs.status == 'success'
+      uses: svenstaro/upload-release-action@master
+      with:
+        repo_token: ${{ secrets.SUPER_TOKEN }}
+        file: openwrt/bin/${{matrix.target}}-packages.tar
+        asset_name: ${{matrix.target}}-packages-${{ env.DATE }}.tar
+        tag: ${{ env.DATE }}
+        overwrite: true
+        file_glob: true
+
+    - name: 上传镜像包到Release
+      if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_REALEASE == 'true' && !cancelled() &&  steps.compile.outputs.status == 'success'
+      uses: svenstaro/upload-release-action@master
+      with:
+        repo_token: ${{ secrets.SUPER_TOKEN }}
+        file: openwrt/bin/${{matrix.target}}-targets.tar
+        asset_name: ${{matrix.target}}-targets-${{ env.DATE }}.tar
+        tag: ${{ env.DATE }}
+        overwrite: true
+        file_glob: true
+
+    - name: 上传软件包到CowTransfer
+      if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&  steps.compile.outputs.status == 'success'
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+         ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_packages.tar
+        
+    - name: 上传镜像包到CowTransfer
+      if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_COWTRANSFER == 'true' && !cancelled() &&　 steps.compile.outputs.status == 'success'
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+         ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt/bin/${{matrix.target}}_targets.tar
+        
+    - name: 上传镜像包到Actions
+      if: env.UPLOAD_PACKAGES_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled()　&& steps.compile.outputs.status == 'success'
+      uses: actions/upload-artifact@main
+      with:
+        name: ${{matrix.target}}-packages-${{ env.DATE }}
+        path: openwrt/bin/packages
+        
+    - name: 上传软件包到Actions
+      if: env.UPLOAD_TARGETS_DIR == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+      uses: actions/upload-artifact@main
+      with:
+        name: ${{matrix.target}}-targets-${{ env.DATE }}
+        path: openwrt/bin/targets
+        
+    - name: 上传固件到Actions
+      if: env.UPLOAD_FIRMWARE == 'true' && env.UPLOAD_TO_ARTIFACTS == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+      uses: actions/upload-artifact@main
+      with:
+        name: ${{matrix.target}}-firmware-${{ env.DATE }}
+        path: ./Firmware/
+               
+
+    - name: 微信消息通知
+      if: env.WECHAT_NOTIFICATION == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+      run: curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=恭喜,固件${{matrix.target}}编译完成.
+
+    - name: Telegram消息通知
+      if: env.TELEGRAM_NOTIFICATION == 'true' && !cancelled() && steps.compile.outputs.status == 'success'
+      run: curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 ${{matrix.target}} 编译成功 🚀" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+      
+    - name: 清理Actions空间
+      if: env.Del_WorkFlow == 'true'
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+          token: ${{ secrets.SUPER_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 14
+          keep_minimum_runs: 0
+    
+    - name: 删除工作流
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+        retain_days: 3
+        keep_minimum_runs: 3
+        token: ${{ secrets.SUPER_TOKEN }}
+        repository: ${{ github.repository }}
+
+    - name: 清理Actions
+      uses: c-hive/gha-remove-artifacts@v1
+      with:
+        age: '3 days' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by Moment.js
+        
+    - name: 删除releases
+      if: env.Del_Releases == 'true'
+      uses: danshui-git/delete-older-releases@main
+      with:
+        repo: ${{ github.repository }}
+        keep_latest: 14
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.SUPER_TOKEN }}
