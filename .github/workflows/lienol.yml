@@ -1,4 +1,4 @@
-name: Openwrt
+name: immortalwrt18.06
 
 on:
 #  release:
@@ -9,7 +9,7 @@ on:
     paths:
       - 'start'
   schedule:
-    - cron: 0 25 * * *
+    - cron: 0 23 * * *
   watch:
     types: [started]
 
