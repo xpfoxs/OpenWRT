@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [lean,lienol,immortalwrt18.06]
+        target: [lean,immortalwrt18.06]
     
     steps:
     - name: 检查
