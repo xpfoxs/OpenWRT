@@ -178,7 +178,9 @@ jobs:
         repo_token: ${{ secrets.SUPER_TOKEN }}
         file: openwrt/bin/${{matrix.target}}-packages.tar
         asset_name: ${{matrix.target}}-packages-${{ env.DATE }}.tar
-        tag: ${{ env.DATE }}
+      #  tag: ${{ env.DATE }}
+        tag: ${{matrix.target}}
+        body: ${{matrix.target}}-${{ env.DATE }}
         overwrite: true
         file_glob: true
 
@@ -189,7 +191,9 @@ jobs:
         repo_token: ${{ secrets.SUPER_TOKEN }}
         file: openwrt/bin/${{matrix.target}}-targets.tar
         asset_name: ${{matrix.target}}-targets-${{ env.DATE }}.tar
-        tag: ${{ env.DATE }}
+      #  tag: ${{ env.DATE }}
+        tag: ${{matrix.target}}
+        body: ${{matrix.target}}-${{ env.DATE }}
         overwrite: true
         file_glob: true
 
