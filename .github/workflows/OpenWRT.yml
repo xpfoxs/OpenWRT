@@ -78,7 +78,7 @@ jobs:
         
     - name: 应用补丁
       run: | 
-        echo "Apply patches"
+        echo "开始应用补丁"
         if [ -n "$(ls -A "user/common/patches" 2>/dev/null)" ]; then
         (
           find "user/common/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d 'openwrt' -p0 --forward"
@@ -98,7 +98,7 @@ jobs:
       
     - name: 加载自定义配置
       run: |        
-         echo "Apply files..."
+         echo "应用自定义文件"
          if [ -n "$(ls -A "user/common/files" 2>/dev/null)" ]; then
          cp -r -f user/common/files/* openwrt/package/base-files/files/
          fi
@@ -106,7 +106,7 @@ jobs:
          cp -r -f user/${{matrix.target}}/files/* openwrt/package/base-files/files/
          fi
         
-         echo "Apply custom.sh"
+         echo "应用自定义脚本custom.sh"
          if [ -f "user/common/custom.sh" ]; then
          (
            cd openwrt
