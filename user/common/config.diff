@@ -45,7 +45,7 @@ CONFIG_PACKAGE_luci-app-bypass_INCLUDE_Kcptun=y
 CONFIG_PACKAGE_luci-app-bypass_INCLUDE_Hysteria=y
 CONFIG_PACKAGE_luci-app-bypass_INCLUDE_Socks5_Proxy=y
 CONFIG_PACKAGE_luci-app-bypass_INCLUDE_Socks_Server=y
-CONFIG_PACKAGE_luci-app-cd8021x=m
+# CONFIG_PACKAGE_luci-app-cd8021x is not set
 CONFIG_PACKAGE_luci-app-cifs=m
 CONFIG_PACKAGE_luci-app-cifs-mount=m
 # CONFIG_PACKAGE_luci-app-cjdns is not set
@@ -69,8 +69,8 @@ CONFIG_PACKAGE_luci-app-diskman_INCLUDE_kmod_md_linear=y
 CONFIG_PACKAGE_luci-app-dnscrypt-proxy=m
 CONFIG_PACKAGE_luci-app-dnsfilter=m
 CONFIG_PACKAGE_luci-app-dnsforwarder=m
-CONFIG_PACKAGE_luci-app-docker=m
-CONFIG_PACKAGE_luci-app-dockerman=m
+# CONFIG_PACKAGE_luci-app-docker is not set
+# CONFIG_PACKAGE_luci-app-dockerman is not set
 # CONFIG_PACKAGE_luci-app-dump1090 is not set
 # CONFIG_PACKAGE_luci-app-dynapoint is not set
 CONFIG_PACKAGE_luci-app-easymesh=m
@@ -87,29 +87,29 @@ CONFIG_PACKAGE_luci-app-gost=m
 # CONFIG_PACKAGE_luci-app-guest-wifi is not set
 CONFIG_PACKAGE_luci-app-haproxy-tcp=m
 CONFIG_PACKAGE_luci-app-hd-idle=m
-CONFIG_PACKAGE_luci-app-hnet=m
-CONFIG_PACKAGE_luci-app-https-dns-proxy=m
-CONFIG_PACKAGE_luci-app-https_dns_proxy=m
+# CONFIG_PACKAGE_luci-app-hnet is not set
+# CONFIG_PACKAGE_luci-app-https-dns-proxy is not set
+# CONFIG_PACKAGE_luci-app-https_dns_proxy is not set
 # CONFIG_PACKAGE_luci-app-ikoolproxy is not set
-CONFIG_PACKAGE_luci-app-ipsec-vpnd=m
-CONFIG_PACKAGE_luci-app-ipsec-vpnserver-manyusers=m
+# CONFIG_PACKAGE_luci-app-ipsec-vpnd is not set
+# CONFIG_PACKAGE_luci-app-ipsec-vpnserver-manyusers is not set
 CONFIG_PACKAGE_luci-app-iptvhelper=m
 CONFIG_PACKAGE_luci-app-kcptun=m
 # CONFIG_PACKAGE_luci-app-kodexplorer is not set
 # CONFIG_PACKAGE_luci-app-koolproxyR is not set
 # CONFIG_PACKAGE_luci-app-ksmbd is not set
-CONFIG_PACKAGE_luci-app-lucky=m
-CONFIG_PACKAGE_luci-app-lxc=m
-CONFIG_PACKAGE_luci-app-mentohust=m
-CONFIG_PACKAGE_luci-app-minidlna=m
-CONFIG_PACKAGE_luci-app-minieap=m
+# CONFIG_PACKAGE_luci-app-lucky is not set
+# CONFIG_PACKAGE_luci-app-lxc is not set
+# CONFIG_PACKAGE_luci-app-mentohust is not set
+# CONFIG_PACKAGE_luci-app-minidlna is not set
+# CONFIG_PACKAGE_luci-app-minieap is not set
 CONFIG_PACKAGE_luci-app-mjpg-streamer=m
 CONFIG_PACKAGE_luci-app-mosdns=m
 # CONFIG_PACKAGE_luci-app-music-remote-center is not set
 CONFIG_PACKAGE_luci-app-mwan3=m
 CONFIG_PACKAGE_luci-app-mwan3helper=m
-CONFIG_PACKAGE_luci-app-mwol=m
-CONFIG_PACKAGE_luci-app-n2n_v2=m
+# CONFIG_PACKAGE_luci-app-mwol is not set
+# CONFIG_PACKAGE_luci-app-n2n_v2 is not set
 # CONFIG_PACKAGE_luci-app-naiveproxy is not set
 CONFIG_PACKAGE_luci-app-netdata=m
 CONFIG_PACKAGE_luci-app-nfs=m
@@ -127,13 +127,13 @@ CONFIG_PACKAGE_luci-app-oled=m
 # CONFIG_PACKAGE_luci-app-olsr-viz is not set
 CONFIG_PACKAGE_luci-app-onliner=m
 CONFIG_PACKAGE_luci-app-openclash=m
-CONFIG_PACKAGE_iptables-mod-tproxy=y
-CONFIG_PACKAGE_iptables-mod-extra=y
+# CONFIG_PACKAGE_iptables-mod-tproxy is not set
+# CONFIG_PACKAGE_iptables-mod-extra is not set
 CONFIG_PACKAGE_luci-app-openvpn=m
 CONFIG_PACKAGE_luci-app-openvpn-server=m
 CONFIG_PACKAGE_luci-app-oscam=m
 CONFIG_PACKAGE_luci-app-p910nd=m
-CONFIG_PACKAGE_luci-app-pagekitec=m
+# CONFIG_PACKAGE_luci-app-pagekitec is not set
 CONFIG_PACKAGE_luci-app-passwall=m
 
 #
@@ -302,31 +302,31 @@ CONFIG_PACKAGE_luci-app-zerotier=m
 #
 CONFIG_PACKAGE_luci-theme-Butterfly=y
 CONFIG_PACKAGE_luci-theme-Butterfly-dark=y
-CONFIG_PACKAGE_luci-theme-argon=y
-CONFIG_PACKAGE_luci-theme-argon-dark-mod=y
-CONFIG_PACKAGE_luci-theme-argon-light-mod=y
-CONFIG_PACKAGE_luci-theme-argon-mc=y
-CONFIG_PACKAGE_luci-theme-argon-mod=y
-CONFIG_PACKAGE_luci-theme-argonne=y
-CONFIG_PACKAGE_luci-theme-argonv2=y
-CONFIG_PACKAGE_luci-theme-argonv3=y
+CONFIG_PACKAGE_luci-theme-argon=m
+CONFIG_PACKAGE_luci-theme-argon-dark-mod=m
+CONFIG_PACKAGE_luci-theme-argon-light-mod=m
+CONFIG_PACKAGE_luci-theme-argon-mc=m
+CONFIG_PACKAGE_luci-theme-argon-mod=m
+CONFIG_PACKAGE_luci-theme-argonne=m
+CONFIG_PACKAGE_luci-theme-argonv2=m
+CONFIG_PACKAGE_luci-theme-argonv3=m
 CONFIG_PACKAGE_luci-theme-atmaterial=y
 CONFIG_PACKAGE_luci-theme-atmaterial_new=y
-CONFIG_PACKAGE_luci-theme-bootstrap=y
-CONFIG_PACKAGE_luci-theme-bootstrap-mod=y
-CONFIG_PACKAGE_luci-theme-darkmatter=y
+CONFIG_PACKAGE_luci-theme-bootstrap=m
+CONFIG_PACKAGE_luci-theme-bootstrap-mod=m
+CONFIG_PACKAGE_luci-theme-darkmatter=m
 CONFIG_PACKAGE_luci-theme-design=y
 CONFIG_PACKAGE_luci-theme-ifit=y
-CONFIG_PACKAGE_luci-theme-infinityfreedom=y
-CONFIG_PACKAGE_luci-theme-material=y
-CONFIG_PACKAGE_luci-theme-neobird=y
-CONFIG_PACKAGE_luci-theme-netgear=y
-CONFIG_PACKAGE_luci-theme-netgearv2=y
-CONFIG_PACKAGE_luci-theme-opentomato=y
-CONFIG_PACKAGE_luci-theme-opentomcat=y
-CONFIG_PACKAGE_luci-theme-opentopd=y
-CONFIG_PACKAGE_luci-theme-rosy=y
-CONFIG_PACKAGE_luci-theme-tomato=y
+CONFIG_PACKAGE_luci-theme-infinityfreedom=m
+CONFIG_PACKAGE_luci-theme-material=m
+CONFIG_PACKAGE_luci-theme-neobird=m
+CONFIG_PACKAGE_luci-theme-netgear=m
+CONFIG_PACKAGE_luci-theme-netgearv2=m
+CONFIG_PACKAGE_luci-theme-opentomato=m
+CONFIG_PACKAGE_luci-theme-opentomcat=m
+CONFIG_PACKAGE_luci-theme-opentopd=m
+CONFIG_PACKAGE_luci-theme-rosy=m
+CONFIG_PACKAGE_luci-theme-tomato=m
 #
 # 2. Themes End
 #
