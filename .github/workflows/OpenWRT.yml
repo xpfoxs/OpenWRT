@@ -73,6 +73,7 @@ jobs:
         git clone ${{ env.REPO_URL }} -b ${{ env.REPO_BRANCH }} openwrt
         cd openwrt
         sed -i '$a src-git smpackage https://github.com/kenzok8/small-package' feeds.conf.default
+        
     - name: 应用补丁
       run: | 
         echo "开始应用补丁"
@@ -88,8 +89,8 @@ jobs:
         fi
         
     - name: 更新/安装源
+      working-directory: ./openwrt
       run: |
-         cd openwrt
          ./scripts/feeds update -a
          ./scripts/feeds install -a
       
@@ -118,13 +119,12 @@ jobs:
          fi
          
     - name: 下载软件包
+      working-directory: ./openwrt
       id: package
       run: |
-        cd openwrt
         make defconfig
         echo '最终生成的.config文件'
-        make download -j8
-        find dl -size -1024c -exec ls -l {} \;
+        make download -j$(nproc)
         find dl -size -1024c -exec rm -f {} \;
         
     - name: 设置缓存
@@ -134,9 +134,9 @@ jobs:
         prefix: ${{ github.workspace }}/openwrt
 
     - name: 开始编译固件
+      working-directory: ./openwrt
       id: compile
       run: |
-        cd openwrt
         echo -e "$(($(nproc)+1)) thread compile"
         make -j$(($(nproc)+1)) || make -j1 V=s
         echo "status=success" >> $GITHUB_OUTPUT
