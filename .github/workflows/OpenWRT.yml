@@ -18,9 +18,8 @@ env:
 
 jobs:
   build:
-    runs-on:  ubuntu-latest
-#    if: github.event.repository.owner.id == github.event.sender.id
-    if: github.repository_owner=='xpfoxs'
+    runs-on: Ubuntu-22.04
+    if: github.event.repository.owner.id == github.event.sender.id
 
     name: Build ${{matrix.target}}
     strategy:
@@ -31,8 +30,6 @@ jobs:
     steps:
     - name: 检查
       uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
         
     - name: 设置日期
       run: |
