@@ -55,13 +55,6 @@ jobs:
       run: |
         wget -qO- --no-check-certificate https://raw.githubusercontent.com/Kurokosama/serverbench/main/bench.sh | bash
 
-    - name: 开启SSH链接到Actions
-      if: env.OPEN_SSH == 'true'    
-      uses: P3TERX/ssh2actions@v1.0.0
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        
     - name: 加载脚本设置
       run: |    
         source "${GITHUB_WORKSPACE}/user/${{matrix.target}}/settings.ini"
@@ -75,9 +68,17 @@ jobs:
         echo "UPLOAD_TO_COWTRANSFER=${UPLOAD_TO_COWTRANSFER}" >> $GITHUB_ENV
         echo "WECHAT_NOTIFICATION=${WECHAT_NOTIFICATION}" >> $GITHUB_ENV
         echo "TELEGRAM_NOTIFICATION=${TELEGRAM_NOTIFICATION}" >> $GITHUB_ENV
+        echo "OPEN_SSH=${OPEN_SSH}" >> $GITHUB_ENV        
         echo "Del_WorkFlow=${Del_WorkFlow}" >> $GITHUB_ENV
         echo "Del_Releases=${Del_Releases}" >> $GITHUB_ENV
         df -hT
+
+    - name: 开启SSH链接到Actions
+      if: env.OPEN_SSH == 'true'    
+      uses: P3TERX/ssh2actions@v1.0.0
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         
     - name: 下载源码
       run: |
