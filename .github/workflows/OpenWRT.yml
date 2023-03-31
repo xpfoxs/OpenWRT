@@ -36,7 +36,7 @@ jobs:
         sudo timedatectl set-timezone 'Asia/Shanghai'
         date=$(date +%Y-%m-%d)
         echo "DATE=$date" >> $GITHUB_ENV
-        
+
     - name: 开始安装编译所需系统
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -54,6 +54,13 @@ jobs:
     - name: 服务器基准
       run: |
         wget -qO- --no-check-certificate https://raw.githubusercontent.com/Kurokosama/serverbench/main/bench.sh | bash
+
+    - name: 开启SSH链接到Actions
+      if: env.OPEN_SSH == 'true'    
+      uses: P3TERX/ssh2actions@v1.0.0
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         
     - name: 加载脚本设置
       run: |    
