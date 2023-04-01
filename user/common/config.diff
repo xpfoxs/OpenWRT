@@ -1,10 +1,10 @@
 #
 # 1. Applications
 #
-CONFIG_PACKAGE_luci-app-accesscontrol=y
+CONFIG_PACKAGE_luci-app-accesscontrol=m
 # CONFIG_PACKAGE_luci-app-acme is not set
 # CONFIG_PACKAGE_luci-app-adblock is not set
-CONFIG_PACKAGE_luci-app-adbyby-plus=y
+CONFIG_PACKAGE_luci-app-adbyby-plus=m
 CONFIG_PACKAGE_luci-app-advanced-reboot=m
 # CONFIG_PACKAGE_luci-app-advancedsetting is not set
 # CONFIG_PACKAGE_luci-app-ahcp is not set
@@ -76,7 +76,7 @@ CONFIG_PACKAGE_luci-app-iptvhelper=m
 # CONFIG_PACKAGE_luci-app-minieap is not set
 # CONFIG_PACKAGE_luci-app-mjpg-streamer is not set
 CONFIG_PACKAGE_luci-app-music-remote-center=m
-CONFIG_PACKAGE_luci-app-mwan3=y
+CONFIG_PACKAGE_luci-app-mwan3=m
 CONFIG_PACKAGE_luci-app-mwan3helper=m
 # CONFIG_PACKAGE_luci-app-mwol is not set
 # CONFIG_PACKAGE_luci-app-n2n_v2 is not set
@@ -187,27 +187,27 @@ CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Xray=y
 # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Libev_Client is not set
 # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Libev_Server is not set
 # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan is not set
-CONFIG_PACKAGE_luci-app-ssrserver-python=y
+CONFIG_PACKAGE_luci-app-ssrserver-python=m
 # CONFIG_PACKAGE_luci-app-statistics is not set
-CONFIG_PACKAGE_luci-app-syncdial=y
+CONFIG_PACKAGE_luci-app-syncdial=m
 # CONFIG_PACKAGE_luci-app-syncthing is not set
 # CONFIG_PACKAGE_luci-app-sysuh3c is not set
 # CONFIG_PACKAGE_luci-app-timecontrol is not set
 # CONFIG_PACKAGE_luci-app-timewol is not set
 # CONFIG_PACKAGE_luci-app-tinyproxy is not set
 # CONFIG_PACKAGE_luci-app-transmission is not set
-CONFIG_PACKAGE_luci-app-travelmate=y
+# CONFIG_PACKAGE_luci-app-travelmate is not set
 # CONFIG_PACKAGE_luci-app-trojan-server is not set
-CONFIG_PACKAGE_luci-app-ttyd=y
-CONFIG_PACKAGE_luci-app-turboacc=y
+CONFIG_PACKAGE_luci-app-ttyd=m
+CONFIG_PACKAGE_luci-app-turboacc=m
 CONFIG_PACKAGE_TURBOACC_INCLUDE_SHORTCUT_FE=y
 CONFIG_PACKAGE_TURBOACC_INCLUDE_BBR_CCA=y
 CONFIG_PACKAGE_TURBOACC_INCLUDE_DNSFORWARDER=y
 CONFIG_PACKAGE_TURBOACC_INCLUDE_DNSPROXY=y
 # CONFIG_PACKAGE_luci-app-udp2raw is not set
-CONFIG_PACKAGE_luci-app-udpxy=y
+CONFIG_PACKAGE_luci-app-udpxy=m
 # CONFIG_PACKAGE_luci-app-uhttpd is not set
-CONFIG_PACKAGE_luci-app-unblockmusic=y
+CONFIG_PACKAGE_luci-app-unblockmusic=m
 CONFIG_UnblockNeteaseMusic_Go=y
 CONFIG_UnblockNeteaseMusic_NodeJS=y
 CONFIG_PACKAGE_luci-app-unblockneteasemusic=m
@@ -257,13 +257,13 @@ CONFIG_PACKAGE_luci-theme-argon-mc=m
 CONFIG_PACKAGE_luci-theme-argon-mod=m
 CONFIG_PACKAGE_luci-theme-argonv2=m
 CONFIG_PACKAGE_luci-theme-argonv3=m
-CONFIG_PACKAGE_luci-theme-atmaterial=m
-CONFIG_PACKAGE_luci-theme-bootstrap=y
+CONFIG_PACKAGE_luci-theme-atmaterial=y
+CONFIG_PACKAGE_luci-theme-bootstrap=m
 CONFIG_PACKAGE_luci-theme-bootstrap-mod=m
 CONFIG_PACKAGE_luci-theme-darkmatter=m
 CONFIG_PACKAGE_luci-theme-infinityfreedom=m
 CONFIG_PACKAGE_luci-theme-material=m
-CONFIG_PACKAGE_luci-theme-neobird=m
+CONFIG_PACKAGE_luci-theme-neobird=y
 CONFIG_PACKAGE_luci-theme-netgear=m
 CONFIG_PACKAGE_luci-theme-netgearv2=m
 CONFIG_PACKAGE_luci-theme-opentomato=m
