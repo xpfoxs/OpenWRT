@@ -267,10 +267,10 @@ jobs:
         token: ${{ secrets.SUPER_TOKEN }}
         repository: ${{ github.repository }}
 
-    - name: 清理Actions
-      uses: c-hive/gha-remove-artifacts@v1
-      with:
-        age: '3 days' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by Moment.js
+#    - name: 清理Actions
+#      uses: c-hive/gha-remove-artifacts@v1
+#      with:
+#        age: '3 days' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by Moment.js
         
     - name: 删除releases
       if: env.Del_Releases == 'true'
