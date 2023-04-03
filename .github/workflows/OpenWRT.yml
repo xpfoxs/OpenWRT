@@ -191,7 +191,7 @@ jobs:
         asset_name: ${{matrix.target}}-packages-${{ env.DATE }}.tar
         tag: ${{ env.DATE }}
       #  tag: ${{matrix.target}}
-        body: ${{matrix.target}}固件，${{ env.DATE }}自动编译发布
+        body: x86_64固件，${{ env.DATE }}自动编译发布
         overwrite: true
         file_glob: true
 
@@ -204,7 +204,7 @@ jobs:
         asset_name: ${{matrix.target}}-targets-${{ env.DATE }}.tar
         tag: ${{ env.DATE }}
       #  tag: ${{matrix.target}}
-        body: ${{matrix.target}}固件，${{ env.DATE }}自动编译发布
+        body: x86_64固件，${{ env.DATE }}自动编译发布
         overwrite: true
         file_glob: true
 
