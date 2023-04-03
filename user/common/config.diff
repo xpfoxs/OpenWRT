@@ -250,28 +250,36 @@ CONFIG_PACKAGE_luci-app-design-config=m
 #
 # 2. Themes
 #
-CONFIG_PACKAGE_luci-theme-Butterfly=m
-CONFIG_PACKAGE_luci-theme-Butterfly-dark=m
 CONFIG_PACKAGE_luci-theme-argon=m
-CONFIG_PACKAGE_luci-theme-argon-dark-mod=m
-CONFIG_PACKAGE_luci-theme-argon-light-mod=m
-CONFIG_PACKAGE_luci-theme-argon-mc=m
-CONFIG_PACKAGE_luci-theme-argon-mod=m
-CONFIG_PACKAGE_luci-theme-argonv2=m
-CONFIG_PACKAGE_luci-theme-argonv3=m
-CONFIG_PACKAGE_luci-theme-atmaterial=y
-CONFIG_PACKAGE_luci-theme-bootstrap=m
-CONFIG_PACKAGE_luci-theme-bootstrap-mod=m
-CONFIG_PACKAGE_luci-theme-darkmatter=m
-CONFIG_PACKAGE_luci-theme-infinityfreedom=m
-CONFIG_PACKAGE_luci-theme-material=m
-CONFIG_PACKAGE_luci-theme-neobird=m
-CONFIG_PACKAGE_luci-theme-netgear=m
-CONFIG_PACKAGE_luci-theme-netgearv2=m
-CONFIG_PACKAGE_luci-theme-opentomato=m
-CONFIG_PACKAGE_luci-theme-opentomcat=m
-CONFIG_PACKAGE_luci-theme-rosy=m
-CONFIG_PACKAGE_luci-theme-design=y
+CONFIG_PACKAGE_luci-theme-argonne=m
+CONFIG_PACKAGE_luci-theme-atmaterial_new=m
+CONFIG_PACKAGE_luci-theme-design=m
+CONFIG_PACKAGE_luci-theme-edge=m
+CONFIG_PACKAGE_luci-theme-ifit=m
+CONFIG_PACKAGE_luci-theme-opentopd=m
+CONFIG_PACKAGE_luci-theme-tomato=m
+
+# CONFIG_PACKAGE_luci-theme-Butterfly is not set
+# CONFIG_PACKAGE_luci-theme-Butterfly-dark is not set
+# CONFIG_PACKAGE_luci-theme-argon is not set
+# CONFIG_PACKAGE_luci-theme-argon-dark-mod is not set
+# CONFIG_PACKAGE_luci-theme-argon-light-mod is not set
+# CONFIG_PACKAGE_luci-theme-argon-mc is not set
+# CONFIG_PACKAGE_luci-theme-argon-mod is not set
+# CONFIG_PACKAGE_luci-theme-argonv2 is not set
+# CONFIG_PACKAGE_luci-theme-argonv3 is not set
+# CONFIG_PACKAGE_luci-theme-atmaterial is not set
+# CONFIG_PACKAGE_luci-theme-bootstrap is not set
+# CONFIG_PACKAGE_luci-theme-bootstrap-mod is not set
+# CONFIG_PACKAGE_luci-theme-darkmatter is not set
+# CONFIG_PACKAGE_luci-theme-infinityfreedom is not set
+# CONFIG_PACKAGE_luci-theme-material is not set
+# CONFIG_PACKAGE_luci-theme-neobird is not set
+# CONFIG_PACKAGE_luci-theme-netgear is not set
+# CONFIG_PACKAGE_luci-theme-netgearv2 is not set
+# CONFIG_PACKAGE_luci-theme-opentomato is not set
+# CONFIG_PACKAGE_luci-theme-opentomcat is not set
+# CONFIG_PACKAGE_luci-theme-rosy is not set
 #
 # 2. Themes End
 #
