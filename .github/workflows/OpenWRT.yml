@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [immortalwrt18.06,lean]
+        target: [immortalwrt18.06,immortalwrt21.02,lean]
     
     steps:
     - name: 检查
