@@ -256,14 +256,14 @@ jobs:
       with:
           token: ${{ secrets.SUPER_TOKEN }}
           repository: ${{ github.repository }}
-          retain_days: 14
-          keep_minimum_runs: 0
+          retain_days: 90
+          keep_minimum_runs: 90
     
     - name: 删除工作流
       uses: Mattraks/delete-workflow-runs@main
       with:
-        retain_days: 3
-        keep_minimum_runs: 3
+        retain_days: 90
+        keep_minimum_runs: 90
         token: ${{ secrets.SUPER_TOKEN }}
         repository: ${{ github.repository }}
         
@@ -272,7 +272,7 @@ jobs:
       uses: danshui-git/delete-older-releases@main
       with:
         repo: ${{ github.repository }}
-        keep_latest: 14
+        keep_latest: 90
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.SUPER_TOKEN }}
