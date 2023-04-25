@@ -150,7 +150,7 @@ CONFIG_DEFAULT_luci=y
 CONFIG_DEFAULT_luci-app-accesscontrol=y
 CONFIG_DEFAULT_luci-app-adbyby-plus=y
 CONFIG_DEFAULT_luci-app-arpbind=y
-CONFIG_DEFAULT_luci-app-autoreboot=n
+CONFIG_DEFAULT_luci-app-autoreboot=m
 CONFIG_DEFAULT_luci-app-ddns=y
 CONFIG_DEFAULT_luci-app-diskman=y
 CONFIG_DEFAULT_luci-app-filetransfer=y
@@ -5103,7 +5103,7 @@ CONFIG_PACKAGE_luci-app-arpbind=m
 # CONFIG_PACKAGE_luci-app-asterisk is not set
 # CONFIG_PACKAGE_luci-app-attendedsysupgrade is not set
 # CONFIG_PACKAGE_luci-app-autoipsetadder is not set
-CONFIG_PACKAGE_luci-app-autoreboot=n
+CONFIG_PACKAGE_luci-app-autoreboot=m
 # CONFIG_PACKAGE_luci-app-autorepeater is not set
 # CONFIG_PACKAGE_luci-app-autotimeset is not set
 # CONFIG_PACKAGE_luci-app-autoupdate is not set
@@ -5514,7 +5514,7 @@ CONFIG_PACKAGE_luci-i18n-adguardhome-zh-cn=m
 # CONFIG_PACKAGE_luci-i18n-adguardhome-zh_Hans is not set
 CONFIG_PACKAGE_luci-i18n-airplay2-zh-cn=m
 CONFIG_PACKAGE_luci-i18n-arpbind-zh-cn=m
-CONFIG_PACKAGE_luci-i18n-autoreboot-zh-cn=n
+CONFIG_PACKAGE_luci-i18n-autoreboot-zh-cn=m
 # CONFIG_PACKAGE_luci-i18n-base-ca is not set
 # CONFIG_PACKAGE_luci-i18n-base-cs is not set
 # CONFIG_PACKAGE_luci-i18n-base-de is not set
